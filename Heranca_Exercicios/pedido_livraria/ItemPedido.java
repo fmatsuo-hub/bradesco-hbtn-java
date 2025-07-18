@@ -2,9 +2,9 @@ package Heranca_Exercicios.pedido_livraria;
 
 public class ItemPedido {
     private int quantidade;
-    private produtos.Produto produto;
+    private Heranca_Exercicios.pedido_livraria.produtos.Produto produto;
 
-    public ItemPedido(produtos.Produto produto, int quantidade) {
+    public ItemPedido(Heranca_Exercicios.pedido_livraria.produtos.Produto produto, int quantidade) {
         this.produto = produto;
         this.quantidade = quantidade;
     }
@@ -13,7 +13,7 @@ public class ItemPedido {
         return quantidade;
     }
 
-    public produtos.Produto getProduto() {
+    public Heranca_Exercicios.pedido_livraria.produtos.Produto getProduto() {
         return produto;
     }
 }
