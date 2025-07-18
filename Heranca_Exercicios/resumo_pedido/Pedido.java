@@ -15,8 +15,7 @@ public class Pedido {
             double precoLiquido = item.getProduto().obterPrecoLiquido();
             total += precoLiquido * item.getQuantidade();
         }
-        total -= total * (percentualDesconto / 100);
-        return total;
+        return total * (1 - percentualDesconto / 100);
     }
 
     public void apresentarResumoPedido() {
@@ -28,37 +27,23 @@ public class Pedido {
             int quantidade = item.getQuantidade();
             double totalItem = preco * quantidade;
             totalProdutos += totalItem;
-    
-            String tipo = produto.getClass().getSimpleName(); // Livro ou Dvd
+
+            String tipo = produto.getClass().getSimpleName();
             String titulo = produto.getTitulo();
-    
+
             System.out.printf("Tipo: %s  Titulo: %s  Preco: %.2f  Quant: %d  Total: %.2f%n",
                     tipo, titulo, preco, quantidade, totalItem);
         }
+
         System.out.println("----------------------------");
 
-        double desconto;
-        if (totalProdutos == 112.62) {
-            desconto = 0.00;
-        } else if (totalProdutos == 112.62 * 0.90) {
-            desconto = 11.26;
-        } else if (totalProdutos == 133.36) {
-            desconto = 6.67;
-        } else if (totalProdutos == 269.29) {
-            desconto = 13.46;
-        } else if (totalProdutos == 229.96) {
-            desconto = 23.00;
-        } else {
-            desconto = 0.00;
-        }
-    
+        double desconto = totalProdutos * (percentualDesconto / 100.0);
         System.out.printf("DESCONTO: %.2f%n", desconto);
         System.out.printf("TOTAL PRODUTOS: %.2f%n", totalProdutos);
         System.out.println("----------------------------");
-    
+
         double totalPedido = totalProdutos - desconto;
         System.out.printf("TOTAL PEDIDO: %.2f%n", totalPedido);
         System.out.println("----------------------------");
     }
-    
 }
