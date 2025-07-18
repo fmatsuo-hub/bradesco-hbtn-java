@@ -17,11 +17,14 @@ public class Pedido {
         System.out.println("------- RESUMO PEDIDO -------");
         for (ItemPedido item : itens) {
             Produto produto = item.getProduto();
-            BigDecimal preco = BigDecimal.valueOf(produto.getPrecoBruto());
-            int quantidade = item.getQuantidade();
-            BigDecimal totalItem = preco.multiply(BigDecimal.valueOf(quantidade)).setScale(2, RoundingMode.HALF_UP);
     
-            totalProdutos = totalProdutos.add(totalItem); // sem arredondar aqui
+            BigDecimal preco = new BigDecimal(String.format("%.2f", produto.getPrecoBruto()));
+            int quantidade = item.getQuantidade();
+    
+            BigDecimal totalItem = preco.multiply(BigDecimal.valueOf(quantidade));
+            totalItem = totalItem.setScale(2, RoundingMode.HALF_UP);
+    
+            totalProdutos = totalProdutos.add(totalItem);
     
             String tipo = produto.getClass().getSimpleName();
             String titulo = produto.getTitulo();
@@ -30,11 +33,11 @@ public class Pedido {
                     tipo, titulo, preco, quantidade, totalItem);
         }
     
-        totalProdutos = totalProdutos.setScale(2, RoundingMode.HALF_UP); // arredondar só depois
+        totalProdutos = totalProdutos.setScale(2, RoundingMode.HALF_UP);
     
         System.out.println("----------------------------");
     
-        BigDecimal desconto = totalProdutos.multiply(percentualDesconto)
+        BigDecimal desconto = totalProdutos.multiply(new BigDecimal(String.format("%.2f", percentualDesconto)))
                                            .divide(BigDecimal.valueOf(100), 10, RoundingMode.HALF_UP)
                                            .setScale(2, RoundingMode.HALF_UP);
     
