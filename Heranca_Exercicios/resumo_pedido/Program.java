@@ -1,7 +1,9 @@
 package Heranca_Exercicios.resumo_pedido;
 
 import java.util.*;
-import Heranca_Exercicios.resumo_pedido.produtos.*;
+
+import Heranca_Exercicios.resumo_pedido.produtos.Dvd;
+import Heranca_Exercicios.resumo_pedido.produtos.Livro;
 
 public class Program {
     public static void main(String[] args) {
