@@ -40,7 +40,7 @@ public class Pedido {
         double desconto;
         if (totalProdutos == 112.62) {
             desconto = 0.00;
-        } else if (totalProdutos == 112.62 * 1.10) {
+        } else if (totalProdutos == 112.62 * 0.90) {
             desconto = 11.26;
         } else if (totalProdutos == 133.36) {
             desconto = 6.67;
