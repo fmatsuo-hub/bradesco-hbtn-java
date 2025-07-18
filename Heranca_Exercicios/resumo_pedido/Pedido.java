@@ -1,32 +1,39 @@
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import produtos.Produto;
 
 public class Pedido {
-    private double percentualDesconto;
+    private BigDecimal percentualDesconto;
     private ItemPedido[] itens;
 
     public Pedido(double percentualDesconto, ItemPedido[] itens) {
-        this.percentualDesconto = percentualDesconto;
+        this.percentualDesconto = BigDecimal.valueOf(percentualDesconto);
         this.itens = itens;
     }
 
-    public double calcularTotal() {
-        double total = 0.0;
+    public BigDecimal calcularTotal() {
+        BigDecimal total = BigDecimal.ZERO;
+
         for (ItemPedido item : itens) {
-            double precoLiquido = item.getProduto().obterPrecoLiquido();
-            total += precoLiquido * item.getQuantidade();
+            BigDecimal precoLiquido = BigDecimal.valueOf(item.getProduto().obterPrecoLiquido());
+            BigDecimal quantidade = BigDecimal.valueOf(item.getQuantidade());
+            total = total.add(precoLiquido.multiply(quantidade));
         }
-        return total * (1 - percentualDesconto / 100);
+
+        BigDecimal desconto = percentualDesconto.divide(BigDecimal.valueOf(100), 4, RoundingMode.HALF_UP);
+        return total.multiply(BigDecimal.ONE.subtract(desconto));
     }
 
     public void apresentarResumoPedido() {
-        double totalProdutos = 0.0;
+        BigDecimal totalProdutos = BigDecimal.ZERO;
+
         System.out.println("------- RESUMO PEDIDO -------");
         for (ItemPedido item : itens) {
             Produto produto = item.getProduto();
-            double preco = produto.getPrecoBruto();
+            BigDecimal preco = BigDecimal.valueOf(produto.getPrecoBruto());
             int quantidade = item.getQuantidade();
-            double totalItem = preco * quantidade;
-            totalProdutos += totalItem;
+            BigDecimal totalItem = preco.multiply(BigDecimal.valueOf(quantidade));
+            totalProdutos = totalProdutos.add(totalItem);
 
             String tipo = produto.getClass().getSimpleName();
             String titulo = produto.getTitulo();
@@ -37,12 +44,12 @@ public class Pedido {
 
         System.out.println("----------------------------");
 
-        double desconto = totalProdutos * (percentualDesconto / 100.0);
+        BigDecimal desconto = totalProdutos.multiply(percentualDesconto).divide(BigDecimal.valueOf(100), 2, RoundingMode.HALF_UP);
         System.out.printf("DESCONTO: %.2f%n", desconto);
         System.out.printf("TOTAL PRODUTOS: %.2f%n", totalProdutos);
         System.out.println("----------------------------");
 
-        double totalPedido = totalProdutos - desconto;
+        BigDecimal totalPedido = totalProdutos.subtract(desconto);
         System.out.printf("TOTAL PEDIDO: %.2f%n", totalPedido);
         System.out.println("----------------------------");
     }
