@@ -13,34 +13,35 @@ public class Pedido {
 
     public void apresentarResumoPedido() {
         BigDecimal totalProdutos = BigDecimal.ZERO;
-
+    
         System.out.println("------- RESUMO PEDIDO -------");
         for (ItemPedido item : itens) {
             Produto produto = item.getProduto();
             BigDecimal preco = BigDecimal.valueOf(produto.getPrecoBruto());
             int quantidade = item.getQuantidade();
-
-            BigDecimal totalItem = preco.multiply(BigDecimal.valueOf(quantidade))
-                                       .setScale(2, RoundingMode.HALF_UP);
-
-            totalProdutos = totalProdutos.add(totalItem).setScale(2, RoundingMode.HALF_UP);
-
+            BigDecimal totalItem = preco.multiply(BigDecimal.valueOf(quantidade)).setScale(2, RoundingMode.HALF_UP);
+    
+            totalProdutos = totalProdutos.add(totalItem); // sem arredondar aqui
+    
             String tipo = produto.getClass().getSimpleName();
             String titulo = produto.getTitulo();
-
+    
             System.out.printf("Tipo: %s  Titulo: %s  Preco: %.2f  Quant: %d  Total: %.2f%n",
                     tipo, titulo, preco, quantidade, totalItem);
         }
-
+    
+        totalProdutos = totalProdutos.setScale(2, RoundingMode.HALF_UP); // arredondar só depois
+    
         System.out.println("----------------------------");
-
+    
         BigDecimal desconto = totalProdutos.multiply(percentualDesconto)
-                                           .divide(BigDecimal.valueOf(100), 2, RoundingMode.HALF_UP);
-
+                                           .divide(BigDecimal.valueOf(100), 10, RoundingMode.HALF_UP)
+                                           .setScale(2, RoundingMode.HALF_UP);
+    
         System.out.printf("DESCONTO: %.2f%n", desconto);
         System.out.printf("TOTAL PRODUTOS: %.2f%n", totalProdutos);
         System.out.println("----------------------------");
-
+    
         BigDecimal totalPedido = totalProdutos.subtract(desconto).setScale(2, RoundingMode.HALF_UP);
         System.out.printf("TOTAL PEDIDO: %.2f%n", totalPedido);
         System.out.println("----------------------------");
