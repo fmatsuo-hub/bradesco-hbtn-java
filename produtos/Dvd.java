@@ -1,4 +1,4 @@
-package Heranca_Exercicios.pedido_livraria.produtos;
+package produtos;
 
 public class Dvd extends Produto {
     private String diretor;
