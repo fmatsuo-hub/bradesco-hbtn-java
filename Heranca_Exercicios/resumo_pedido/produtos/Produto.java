@@ -1,12 +1,14 @@
 package produtos;
 
+import java.math.BigDecimal;
+
 public abstract class Produto {
     private String titulo;
     private int ano;
     private String pais;
-    private double precoBruto;
+    private BigDecimal precoBruto;
 
-    public Produto(String titulo, int ano, String pais, double precoBruto) {
+    public Produto(String titulo, int ano, String pais, BigDecimal precoBruto) {
         this.titulo = titulo;
         this.ano = ano;
         this.pais = pais;
@@ -25,9 +27,9 @@ public abstract class Produto {
         return pais;
     }
 
-    public double getPrecoBruto() {
+    public BigDecimal  getPrecoBruto() {
         return precoBruto;
     }
 
-    public abstract double obterPrecoLiquido();
+    public abstract BigDecimal obterPrecoLiquido();
 }

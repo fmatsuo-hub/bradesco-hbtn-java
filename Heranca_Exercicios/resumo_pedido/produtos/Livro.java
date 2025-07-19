@@ -1,11 +1,14 @@
 package produtos;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public class Livro extends Produto {
     private int paginas;
     private String autor;
     private int edicao;
 
-    public Livro(String titulo, int ano, String pais, double precoBruto, int paginas, String autor, int edicao) {
+    public Livro(String titulo, int ano, String pais, BigDecimal precoBruto, int paginas, String autor, int edicao) {
         super(titulo, ano, pais, precoBruto);
         this.paginas = paginas;
         this.autor = autor;
@@ -25,7 +28,10 @@ public class Livro extends Produto {
     }
 
     @Override
-    public double obterPrecoLiquido() {
-        return getPrecoBruto() * 1.15;
+    public BigDecimal obterPrecoLiquido() {
+        BigDecimal percentualAcrescimo = new BigDecimal("0.15");
+        return getPrecoBruto()
+                .multiply(BigDecimal.ONE.add(percentualAcrescimo))
+                .setScale(2, RoundingMode.HALF_UP);
     }
 }

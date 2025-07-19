@@ -1,11 +1,14 @@
 package produtos;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public class Dvd extends Produto {
     private String diretor;
     private String genero;
     private int duracao;
 
-    public Dvd(String titulo, int ano, String pais, double precoBruto, String diretor, String genero, int duracao) {
+    public Dvd(String titulo, int ano, String pais, BigDecimal  precoBruto, String diretor, String genero, int duracao) {
         super(titulo, ano, pais, precoBruto);
         this.diretor = diretor;
         this.genero = genero;
@@ -25,7 +28,10 @@ public class Dvd extends Produto {
     }
 
     @Override
-    public double obterPrecoLiquido() {
-        return getPrecoBruto() * 1.20;
+    public BigDecimal obterPrecoLiquido() {
+        BigDecimal percentualAcrescimo = new BigDecimal("0.15");
+        return getPrecoBruto()
+                .multiply(BigDecimal.ONE.add(percentualAcrescimo))
+                .setScale(2, RoundingMode.HALF_UP);
     }
 }
