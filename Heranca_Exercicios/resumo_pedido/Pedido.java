@@ -1,13 +1,18 @@
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Pedido {
-    private double percentualDesconto;
-    private ItemPedido[] itens;
+    private List<ItemPedido> itens = new ArrayList<>();
+    private double percentualDesconto = 0.0;
 
-    public Pedido(double percentualDesconto, ItemPedido[] itens) {
-        this.percentualDesconto = percentualDesconto;
-        this.itens = itens;
+    public void adicionarItem(ItemPedido item) {
+        itens.add(item);
+    }
+
+    public void setPercentualDesconto(double percentual) {
+        this.percentualDesconto = percentual;
     }
 
     public void apresentarResumoPedido() {
@@ -18,12 +23,15 @@ public class Pedido {
         for (ItemPedido item : itens) {
             produtos.Produto produto = item.getProduto();
 
-            BigDecimal preco = produto.obterPrecoLiquido();
+            // Arredonda preço unitário para 2 casas decimais antes de multiplicar
+            BigDecimal preco = produto.obterPrecoLiquido().setScale(2, RoundingMode.HALF_EVEN);
 
             int quantidade = item.getQuantidade();
 
-            // Multiplica primeiro, depois arredonda o total do item
+            // Multiplica preço unitário arredondado pela quantidade
             BigDecimal totalItem = preco.multiply(BigDecimal.valueOf(quantidade));
+
+            // Arredonda total do item para 2 casas decimais
             totalItem = totalItem.setScale(2, RoundingMode.HALF_EVEN);
 
             totalProdutos = totalProdutos.add(totalItem);
