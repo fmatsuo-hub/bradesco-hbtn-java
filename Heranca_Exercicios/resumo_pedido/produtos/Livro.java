@@ -29,9 +29,6 @@ public class Livro extends Produto {
 
     @Override
     public BigDecimal obterPrecoLiquido() {
-        BigDecimal percentualAcrescimo = new BigDecimal("0.15");
-        return getPrecoBruto()
-                .multiply(BigDecimal.ONE.add(percentualAcrescimo))
-                .setScale(2, RoundingMode.HALF_UP);
+        return getPrecoBruto().multiply(BigDecimal.valueOf(1.15)).setScale(2, RoundingMode.HALF_UP);
     }
 }

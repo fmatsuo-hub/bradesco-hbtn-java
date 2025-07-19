@@ -27,7 +27,7 @@ public abstract class Produto {
         return pais;
     }
 
-    public BigDecimal  getPrecoBruto() {
+    public BigDecimal getPrecoBruto() {
         return precoBruto;
     }
 
