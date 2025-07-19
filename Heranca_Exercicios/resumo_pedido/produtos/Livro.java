@@ -29,9 +29,11 @@ public class Livro extends Produto {
 
     @Override
     public BigDecimal obterPrecoLiquido() {
+        // Desconto de 10%
         BigDecimal desconto = new BigDecimal("0.10");
         BigDecimal precoLiquido = getPrecoBruto()
-            .multiply(BigDecimal.ONE.subtract(desconto));
-        return precoLiquido.setScale(2, RoundingMode.HALF_EVEN);
+            .multiply(BigDecimal.ONE.subtract(desconto))
+            .setScale(2, RoundingMode.HALF_EVEN);
+        return precoLiquido;
     }
 }
