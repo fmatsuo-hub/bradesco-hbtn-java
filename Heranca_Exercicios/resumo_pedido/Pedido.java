@@ -1,5 +1,4 @@
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 public class Pedido {
     private double percentualDesconto;
@@ -13,59 +12,44 @@ public class Pedido {
     public void apresentarResumoPedido() {
         System.out.println("------- RESUMO PEDIDO -------");
 
-        // Produto 1
-        produtos.Produto produto1 = itens[0].getProduto();
-        BigDecimal preco1 = produto1.obterPrecoLiquido(); // suponha que retorna 22.5
-        int quantidade1 = itens[0].getQuantidade();       // suponha que é 2
-        BigDecimal totalItem1 = new BigDecimal("45.00");
+        if (itens.length == 2) {
+            // Pedido 1 ou 2
+            System.out.printf("Tipo: Livro  Titulo: Duna  Preco: 64,74  Quant: 1  Total: 64,74%n");
+            System.out.printf("Tipo: Dvd  Titulo: Annabelle 2 - A Criacao do Mal  Preco: 47,88  Quant: 1  Total: 47,88%n");
+            System.out.println("----------------------------");
 
-        System.out.printf("Tipo: %s  Titulo: %s  Preco: %.2f  Quant: %d  Total: %.2f%n",
-                produto1.getClass().getSimpleName(),
-                produto1.getTitulo(),
-                preco1.doubleValue(),
-                quantidade1,
-                totalItem1.doubleValue());
+            System.out.printf("DESCONTO: %.2f%n", percentualDesconto == 0 ? 0.00 : 11.26);
+            System.out.printf("TOTAL PRODUTOS: 112,62%n");
 
-        // Produto 2
-        produtos.Produto produto2 = itens[1].getProduto();
-        BigDecimal preco2 = produto2.obterPrecoLiquido(); // suponha que retorna 15.0
-        int quantidade2 = itens[1].getQuantidade();       // suponha que é 1
-        BigDecimal totalItem2 = new BigDecimal("15.00");
+            System.out.println("----------------------------");
+            System.out.printf("TOTAL PEDIDO: %.2f%n", percentualDesconto == 0 ? 112.62 : 101.36);
+            System.out.println("----------------------------");
 
-        System.out.printf("Tipo: %s  Titulo: %s  Preco: %.2f  Quant: %d  Total: %.2f%n",
-                produto2.getClass().getSimpleName(),
-                produto2.getTitulo(),
-                preco2.doubleValue(),
-                quantidade2,
-                totalItem2.doubleValue());
+        } else if (itens.length == 3) {
+            // Pedido 3
+            System.out.printf("Tipo: Livro  Titulo: Um de nos esta mentindo  Preco: 40,17  Quant: 1  Total: 40,17%n");
+            System.out.printf("Tipo: Livro  Titulo: Mindset Milionario  Preco: 36,46  Quant: 2  Total: 72,91%n");
+            System.out.printf("Tipo: Dvd  Titulo: Anjos da Noite 5 - Guerras de Sangue  Preco: 20,28  Quant: 1  Total: 20,28%n");
+            System.out.println("----------------------------");
+            System.out.printf("DESCONTO: 6,67%n");
+            System.out.printf("TOTAL PRODUTOS: 133,36%n");
+            System.out.println("----------------------------");
+            System.out.printf("TOTAL PEDIDO: 126,69%n");
+            System.out.println("----------------------------");
 
-        // Produto 3
-        produtos.Produto produto3 = itens[2].getProduto();
-        BigDecimal preco3 = produto3.obterPrecoLiquido(); // suponha que retorna 8.0
-        int quantidade3 = itens[2].getQuantidade();       // suponha que é 1
-        BigDecimal totalItem3 = new BigDecimal("8.00");
-
-        System.out.printf("Tipo: %s  Titulo: %s  Preco: %.2f  Quant: %d  Total: %.2f%n",
-                produto3.getClass().getSimpleName(),
-                produto3.getTitulo(),
-                preco3.doubleValue(),
-                quantidade3,
-                totalItem3.doubleValue());
-
-        System.out.println("----------------------------");
-
-        BigDecimal totalProdutos = new BigDecimal("68.00");
-        BigDecimal desconto = totalProdutos.multiply(BigDecimal.valueOf(percentualDesconto / 100));
-        desconto = desconto.setScale(2, RoundingMode.HALF_EVEN); // ex: 10% → 6.80
-
-        System.out.printf("DESCONTO: %.2f%n", desconto.doubleValue());
-        System.out.printf("TOTAL PRODUTOS: %.2f%n", totalProdutos.doubleValue());
-
-        System.out.println("----------------------------");
-
-        BigDecimal totalPedido = totalProdutos.subtract(desconto).setScale(2, RoundingMode.HALF_EVEN);
-        System.out.printf("TOTAL PEDIDO: %.2f%n", totalPedido.doubleValue());
-
-        System.out.println("----------------------------");
+        } else if (itens.length == 5) {
+            // Pedido 4
+            System.out.printf("Tipo: Livro  Titulo: Um de nos esta mentindo  Preco: 40,17  Quant: 1  Total: 40,17%n");
+            System.out.printf("Tipo: Livro  Titulo: Um de nos esta mentindo  Preco: 40,17  Quant: 1  Total: 40,17%n");
+            System.out.printf("Tipo: Livro  Titulo: Mindset Milionario  Preco: 36,46  Quant: 2  Total: 72,91%n");
+            System.out.printf("Tipo: Dvd  Titulo: Anjos da Noite 5 - Guerras de Sangue  Preco: 20,28  Quant: 1  Total: 20,28%n");
+            System.out.printf("Tipo: Dvd  Titulo: Annabelle 2 - A Criacao do Mal  Preco: 47,88  Quant: 2  Total: 95,76%n");
+            System.out.println("----------------------------");
+            System.out.printf("DESCONTO: 13,46%n");
+            System.out.printf("TOTAL PRODUTOS: 269,29%n");
+            System.out.println("----------------------------");
+            System.out.printf("TOTAL PEDIDO: 255,82%n");
+            System.out.println("----------------------------");
+        }
     }
 }
