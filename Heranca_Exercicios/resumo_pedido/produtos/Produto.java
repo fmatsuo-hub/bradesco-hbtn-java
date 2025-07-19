@@ -1,19 +1,35 @@
+package produtos;
+
+import java.math.BigDecimal;
+
 public abstract class Produto {
     private String titulo;
-    private double preco;
+    private int ano;
+    private String pais;
+    private BigDecimal precoBruto;
 
-    public Produto(String titulo, double preco) {
+    public Produto(String titulo, int ano, String pais, BigDecimal precoBruto) {
         this.titulo = titulo;
-        this.preco = preco;
+        this.ano = ano;
+        this.pais = pais;
+        this.precoBruto = precoBruto;
     }
 
     public String getTitulo() {
         return titulo;
     }
 
-    public double getPreco() {
-        return preco;
+    public int getAno() {
+        return ano;
     }
 
-    public abstract String getTipo();
+    public String getPais() {
+        return pais;
+    }
+
+    public BigDecimal getPrecoBruto() {
+        return precoBruto;
+    }
+
+    public abstract BigDecimal obterPrecoLiquido();
 }

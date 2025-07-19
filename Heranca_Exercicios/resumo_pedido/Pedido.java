@@ -1,78 +1,59 @@
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Pedido {
-    private List<ItemPedido> itens;
-    private int percentualDesconto;
+    private double percentualDesconto;
+    private ItemPedido[] itens;
 
-    public Pedido() {
-        this.itens = new ArrayList<>();
-        this.percentualDesconto = 0;
-    }
-
-    // Construtor que recebe desconto e array de itens (para usar no Program)
-    public Pedido(int percentualDesconto, ItemPedido[] itensArray) {
+    public Pedido(double percentualDesconto, ItemPedido[] itens) {
         this.percentualDesconto = percentualDesconto;
-        this.itens = new ArrayList<>();
-        for (ItemPedido item : itensArray) {
-            this.itens.add(item);
-        }
-    }
-
-    public List<ItemPedido> getItens() {
-        return itens;
-    }
-
-    public int getPercentualDesconto() {
-        return percentualDesconto;
+        this.itens = itens;
     }
 
     public void apresentarResumoPedido() {
+        BigDecimal totalProdutos = BigDecimal.ZERO;
+
         System.out.println("------- RESUMO PEDIDO -------");
+
         for (ItemPedido item : itens) {
-            String tipo = item.getProduto().getTipo();
-            String titulo = item.getProduto().getTitulo();
-            double preco = arredondar(item.getProduto().getPreco());
-            int quant = item.getQuantidade();
-            double totalItem = arredondar(preco * quant);
+            produtos.Produto produto = item.getProduto();
 
-            System.out.printf("Tipo: %s  Titulo: %s  Preco: %.2f  Quant: %d  Total: %.2f\n",
-                    tipo, titulo, preco, quant, totalItem);
+            BigDecimal preco = produto.obterPrecoLiquido();
+
+            int quantidade = item.getQuantidade();
+
+            // Multiplica primeiro, depois arredonda o total do item
+            BigDecimal totalItem = preco.multiply(BigDecimal.valueOf(quantidade));
+            totalItem = totalItem.setScale(2, RoundingMode.HALF_EVEN);
+
+            totalProdutos = totalProdutos.add(totalItem);
+
+            String tipo = produto.getClass().getSimpleName();
+            String titulo = produto.getTitulo();
+
+            System.out.printf("Tipo: %s  Titulo: %s  Preco: %.2f  Quant: %d  Total: %.2f%n",
+                    tipo,
+                    titulo,
+                    preco.doubleValue(),
+                    quantidade,
+                    totalItem.doubleValue());
         }
+
         System.out.println("----------------------------");
 
-        double totalProdutos = arredondar(getTotalProdutos());
-        double desconto = arredondar(getDesconto());
-        double totalPedido = arredondar(getTotalPedido());
+        BigDecimal desconto = totalProdutos.multiply(BigDecimal.valueOf(percentualDesconto / 100));
+        desconto = desconto.setScale(2, RoundingMode.HALF_EVEN);
 
-        System.out.printf("DESCONTO: %.2f\n", desconto);
-        System.out.printf("TOTAL PRODUTOS: %.2f\n", totalProdutos);
+        System.out.printf("DESCONTO: %.2f%n", desconto.doubleValue());
+        System.out.printf("TOTAL PRODUTOS: %.2f%n", totalProdutos.setScale(2, RoundingMode.HALF_EVEN).doubleValue());
+
         System.out.println("----------------------------");
-        System.out.printf("TOTAL PEDIDO: %.2f\n", totalPedido);
+
+        BigDecimal totalPedido = totalProdutos.subtract(desconto);
+        totalPedido = totalPedido.setScale(2, RoundingMode.HALF_EVEN);
+
+        System.out.printf("TOTAL PEDIDO: %.2f%n", totalPedido.doubleValue());
+
         System.out.println("----------------------------");
-    }
-
-    private double getTotalProdutos() {
-        double total = 0.0;
-        for (ItemPedido item : itens) {
-            total += item.getProduto().getPreco() * item.getQuantidade();
-        }
-        return total;
-    }
-
-    private double getDesconto() {
-        return getTotalProdutos() * percentualDesconto / 100.0;
-    }
-
-    private double getTotalPedido() {
-        return getTotalProdutos() - getDesconto();
-    }
-
-    private double arredondar(double valor) {
-        BigDecimal bd = BigDecimal.valueOf(valor);
-        bd = bd.setScale(2, RoundingMode.HALF_UP);
-        return bd.doubleValue();
     }
 }
