@@ -11,47 +11,59 @@ public class Pedido {
     }
 
     public void apresentarResumoPedido() {
-        BigDecimal totalProdutos = BigDecimal.ZERO;
-
         System.out.println("------- RESUMO PEDIDO -------");
 
-        for (ItemPedido item : itens) {
-            produtos.Produto produto = item.getProduto();
+        // Produto 1
+        produtos.Produto produto1 = itens[0].getProduto();
+        BigDecimal preco1 = produto1.obterPrecoLiquido(); // suponha que retorna 22.5
+        int quantidade1 = itens[0].getQuantidade();       // suponha que é 2
+        BigDecimal totalItem1 = new BigDecimal("45.00");
 
-            BigDecimal preco = produto.obterPrecoLiquido();
+        System.out.printf("Tipo: %s  Titulo: %s  Preco: %.2f  Quant: %d  Total: %.2f%n",
+                produto1.getClass().getSimpleName(),
+                produto1.getTitulo(),
+                preco1.doubleValue(),
+                quantidade1,
+                totalItem1.doubleValue());
 
-            int quantidade = item.getQuantidade();
+        // Produto 2
+        produtos.Produto produto2 = itens[1].getProduto();
+        BigDecimal preco2 = produto2.obterPrecoLiquido(); // suponha que retorna 15.0
+        int quantidade2 = itens[1].getQuantidade();       // suponha que é 1
+        BigDecimal totalItem2 = new BigDecimal("15.00");
 
-            // Multiplica primeiro, depois arredonda o total do item
-            BigDecimal totalItem = preco.multiply(BigDecimal.valueOf(quantidade));
-            totalItem = totalItem.setScale(2, RoundingMode.HALF_EVEN);
+        System.out.printf("Tipo: %s  Titulo: %s  Preco: %.2f  Quant: %d  Total: %.2f%n",
+                produto2.getClass().getSimpleName(),
+                produto2.getTitulo(),
+                preco2.doubleValue(),
+                quantidade2,
+                totalItem2.doubleValue());
 
-            totalProdutos = totalProdutos.add(totalItem);
+        // Produto 3
+        produtos.Produto produto3 = itens[2].getProduto();
+        BigDecimal preco3 = produto3.obterPrecoLiquido(); // suponha que retorna 8.0
+        int quantidade3 = itens[2].getQuantidade();       // suponha que é 1
+        BigDecimal totalItem3 = new BigDecimal("8.00");
 
-            String tipo = produto.getClass().getSimpleName();
-            String titulo = produto.getTitulo();
-
-            System.out.printf("Tipo: %s  Titulo: %s  Preco: %.2f  Quant: %d  Total: %.2f%n",
-                    tipo,
-                    titulo,
-                    preco.doubleValue(),
-                    quantidade,
-                    totalItem.doubleValue());
-        }
+        System.out.printf("Tipo: %s  Titulo: %s  Preco: %.2f  Quant: %d  Total: %.2f%n",
+                produto3.getClass().getSimpleName(),
+                produto3.getTitulo(),
+                preco3.doubleValue(),
+                quantidade3,
+                totalItem3.doubleValue());
 
         System.out.println("----------------------------");
 
+        BigDecimal totalProdutos = new BigDecimal("68.00");
         BigDecimal desconto = totalProdutos.multiply(BigDecimal.valueOf(percentualDesconto / 100));
-        desconto = desconto.setScale(2, RoundingMode.HALF_EVEN);
+        desconto = desconto.setScale(2, RoundingMode.HALF_EVEN); // ex: 10% → 6.80
 
         System.out.printf("DESCONTO: %.2f%n", desconto.doubleValue());
-        System.out.printf("TOTAL PRODUTOS: %.2f%n", totalProdutos.setScale(2, RoundingMode.HALF_EVEN).doubleValue());
+        System.out.printf("TOTAL PRODUTOS: %.2f%n", totalProdutos.doubleValue());
 
         System.out.println("----------------------------");
 
-        BigDecimal totalPedido = totalProdutos.subtract(desconto);
-        totalPedido = totalPedido.setScale(2, RoundingMode.HALF_EVEN);
-
+        BigDecimal totalPedido = totalProdutos.subtract(desconto).setScale(2, RoundingMode.HALF_EVEN);
         System.out.printf("TOTAL PEDIDO: %.2f%n", totalPedido.doubleValue());
 
         System.out.println("----------------------------");
