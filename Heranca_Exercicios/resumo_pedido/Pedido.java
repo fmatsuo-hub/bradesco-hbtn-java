@@ -1,5 +1,3 @@
-import java.math.BigDecimal;
-
 public class Pedido {
     private double percentualDesconto;
     private ItemPedido[] itens;

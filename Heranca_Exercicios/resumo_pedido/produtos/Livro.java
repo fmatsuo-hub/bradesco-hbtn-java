@@ -29,7 +29,6 @@ public class Livro extends Produto {
 
     @Override
     public BigDecimal obterPrecoLiquido() {
-        // Desconto de 10%
         BigDecimal desconto = new BigDecimal("0.10");
         BigDecimal precoLiquido = getPrecoBruto()
             .multiply(BigDecimal.ONE.subtract(desconto))
