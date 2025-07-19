@@ -31,8 +31,7 @@ public class Dvd extends Produto {
     public BigDecimal obterPrecoLiquido() {
         BigDecimal acrescimo = new BigDecimal("0.15");
         BigDecimal precoLiquido = getPrecoBruto()
-            .multiply(BigDecimal.ONE.add(acrescimo))
-            .setScale(2, RoundingMode.HALF_EVEN);
-        return precoLiquido;
+            .multiply(BigDecimal.ONE.add(acrescimo));
+        return precoLiquido.setScale(2, RoundingMode.HALF_EVEN);
     }
 }

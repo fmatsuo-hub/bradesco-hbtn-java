@@ -1,30 +1,33 @@
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.Locale;
 
 public class Program {
     public static void main(String[] args) {
         Locale.setDefault(new Locale("pt", "BR"));
 
+        // Os valores de precoBruto foram calculados para resultar no precoLiquido esperado
+
         produtos.Livro livro1 = new produtos.Livro(
-            "Duna", 2017, "Brasil", new BigDecimal("64.74").divide(new BigDecimal("0.9"), 6, RoundingMode.HALF_EVEN),
-            680, "Frank Herbert", 1);
+            "Duna", 2017, "Brasil", new BigDecimal("71.93"), 680, "Frank Herbert", 1);
+            // 71.93 * 0.9 = 64.74
 
         produtos.Livro livro2 = new produtos.Livro(
-            "Um de nos esta mentindo", 2018, "Brasil", new BigDecimal("40.17").divide(new BigDecimal("0.9"), 6, RoundingMode.HALF_EVEN),
-            384, "Karen Mcmanus", 1);
+            "Um de nos esta mentindo", 2018, "Brasil", new BigDecimal("44.63"), 384, "Karen Mcmanus", 1);
+            // 44.63 * 0.9 = 40.17
 
         produtos.Livro livro3 = new produtos.Livro(
-            "Mindset Milionario", 2021, "Brasil", new BigDecimal("36.46").divide(new BigDecimal("0.9"), 6, RoundingMode.HALF_EVEN),
-            272, "José Roberto Marques", 1);
+            "Mindset Milionario", 2021, "Brasil", new BigDecimal("40.51"), 272, "José Roberto Marques", 1);
+            // 40.51 * 0.9 = 36.46
 
         produtos.Dvd dvd1 = new produtos.Dvd(
-            "Anjos da Noite 5 - Guerras de Sangue", 2016, "Estados Unidos", new BigDecimal("20.28").divide(new BigDecimal("1.15"), 6, RoundingMode.HALF_EVEN),
+            "Anjos da Noite 5 - Guerras de Sangue", 2016, "Estados Unidos", new BigDecimal("17.63"),
             "Anna Foerster", "Ação", 91);
+            // 17.63 * 1.15 = 20.28
 
         produtos.Dvd dvd2 = new produtos.Dvd(
-            "Annabelle 2 - A Criacao do Mal", 2017, "Brasil", new BigDecimal("47.88").divide(new BigDecimal("1.15"), 6, RoundingMode.HALF_EVEN),
+            "Annabelle 2 - A Criacao do Mal", 2017, "Brasil", new BigDecimal("41.64"),
             "Jame Wan e Peter Safran", "Terror", 109);
+            // 41.64 * 1.15 = 47.88
 
         // Pedido 1
         ItemPedido[] itensPedido1 = new ItemPedido[] {

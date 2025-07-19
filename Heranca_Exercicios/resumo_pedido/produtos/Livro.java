@@ -31,8 +31,7 @@ public class Livro extends Produto {
     public BigDecimal obterPrecoLiquido() {
         BigDecimal desconto = new BigDecimal("0.10");
         BigDecimal precoLiquido = getPrecoBruto()
-            .multiply(BigDecimal.ONE.subtract(desconto))
-            .setScale(2, RoundingMode.HALF_EVEN);
-        return precoLiquido;
+            .multiply(BigDecimal.ONE.subtract(desconto));
+        return precoLiquido.setScale(2, RoundingMode.HALF_EVEN);
     }
 }
