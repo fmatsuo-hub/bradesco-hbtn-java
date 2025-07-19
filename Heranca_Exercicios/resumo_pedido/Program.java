@@ -1,18 +1,32 @@
-import java.util.Locale;
 import java.math.BigDecimal;
-import produtos.Livro;
-import produtos.Dvd;
+import java.math.RoundingMode;
+import java.util.Locale;
 
 public class Program {
     public static void main(String[] args) {
         Locale.setDefault(new Locale("pt", "BR"));
 
-        Livro livro1 = new Livro("Duna", 2017, "Brasil", new BigDecimal("64.74"), 680, "Frank Herbert", 1);
-        Livro livro2 = new Livro("Um de nos esta mentindo", 2018, "Brasil", new BigDecimal("40.17"), 384, "Karen Mcmanus", 1);
-        Livro livro3 = new Livro("Mindset Milionario", 2021, "Brasil", new BigDecimal("36.46"), 272, "José Roberto Marques", 1);
+       
+        produtos.Livro livro1 = new produtos.Livro(
+            "Duna", 2017, "Brasil", new BigDecimal("64.74").divide(new BigDecimal("0.9"), 2, RoundingMode.HALF_EVEN),
+            680, "Frank Herbert", 1);
 
-        Dvd dvd1 = new Dvd("Anjos da Noite 5 - Guerras de Sangue", 2016, "Estados Unidos", new BigDecimal("20.28"), "Anna Foerster", "Ação", 91);
-        Dvd dvd2 = new Dvd("Annabelle 2 - A Criacao do Mal", 2017, "Brasil", new BigDecimal("47.88"), "Jame Wan e Peter Safran", "Terror", 109);
+        produtos.Livro livro2 = new produtos.Livro(
+            "Um de nos esta mentindo", 2018, "Brasil", new BigDecimal("40.17").divide(new BigDecimal("0.9"), 2, RoundingMode.HALF_EVEN),
+            384, "Karen Mcmanus", 1);
+
+        produtos.Livro livro3 = new produtos.Livro(
+            "Mindset Milionario", 2021, "Brasil", new BigDecimal("36.46").divide(new BigDecimal("0.9"), 2, RoundingMode.HALF_EVEN),
+            272, "José Roberto Marques", 1);
+
+        // DVDs - preço bruto calculado para atingir preço líquido esperado
+        produtos.Dvd dvd1 = new produtos.Dvd(
+            "Anjos da Noite 5 - Guerras de Sangue", 2016, "Estados Unidos", new BigDecimal("20.28").divide(new BigDecimal("1.15"), 2, RoundingMode.HALF_EVEN),
+            "Anna Foerster", "Ação", 91);
+
+        produtos.Dvd dvd2 = new produtos.Dvd(
+            "Annabelle 2 - A Criacao do Mal", 2017, "Brasil", new BigDecimal("47.88").divide(new BigDecimal("1.15"), 2, RoundingMode.HALF_EVEN),
+            "Jame Wan e Peter Safran", "Terror", 109);
 
         // Pedido 1
         ItemPedido[] itensPedido1 = new ItemPedido[] {
