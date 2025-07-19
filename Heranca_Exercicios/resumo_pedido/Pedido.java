@@ -1,6 +1,6 @@
-import produtos.Produto;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import produtos.Produto;
 
 public class Pedido {
     private double percentualDesconto;
@@ -20,12 +20,12 @@ public class Pedido {
             Produto produto = item.getProduto();
 
             BigDecimal preco = BigDecimal.valueOf(produto.getPrecoBruto());
-            preco = preco.setScale(2, RoundingMode.DOWN);
+            preco = preco.setScale(2, RoundingMode.HALF_EVEN);
 
             int quantidade = item.getQuantidade();
 
             BigDecimal totalItem = preco.multiply(BigDecimal.valueOf(quantidade));
-            totalItem = totalItem.setScale(2, RoundingMode.DOWN);
+            totalItem = totalItem.setScale(2, RoundingMode.HALF_EVEN);
 
             totalProdutos = totalProdutos.add(totalItem);
 
@@ -43,15 +43,15 @@ public class Pedido {
         System.out.println("----------------------------");
 
         BigDecimal desconto = totalProdutos.multiply(BigDecimal.valueOf(percentualDesconto / 100));
-        desconto = desconto.setScale(2, RoundingMode.DOWN);
+        desconto = desconto.setScale(2, RoundingMode.HALF_EVEN);
 
         System.out.printf("DESCONTO: %.2f%n", desconto.doubleValue());
-        System.out.printf("TOTAL PRODUTOS: %.2f%n", totalProdutos.setScale(2, RoundingMode.DOWN).doubleValue());
+        System.out.printf("TOTAL PRODUTOS: %.2f%n", totalProdutos.setScale(2, RoundingMode.HALF_EVEN).doubleValue());
 
         System.out.println("----------------------------");
 
         BigDecimal totalPedido = totalProdutos.subtract(desconto);
-        totalPedido = totalPedido.setScale(2, RoundingMode.DOWN);
+        totalPedido = totalPedido.setScale(2, RoundingMode.HALF_EVEN);
 
         System.out.printf("TOTAL PEDIDO: %.2f%n", totalPedido.doubleValue());
 
