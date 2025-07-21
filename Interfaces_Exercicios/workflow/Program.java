@@ -2,9 +2,9 @@ package workflow;
 
 public class Program {
     public static void main(String[] args) {
-        MaquinaWorkflow maquinaWorkflow = new MaquinaWorkflow();
+        workflow.MaquinaWorkflow maquinaWorkflow = new workflow.MaquinaWorkflow();
 
-        Workflow workflowEncodificarVideos = new Workflow();
+        workflow.Workflow workflowEncodificarVideos = new workflow.Workflow();
 
         workflowEncodificarVideos.registrarAtividade(new workflow.atividades.CarregarVideo());
         workflowEncodificarVideos.registrarAtividade(new workflow.atividades.CodificarVideo());
@@ -14,7 +14,7 @@ public class Program {
 
         System.out.println("-----");
 
-        Workflow workflowVideos = new Workflow();
+        workflow.Workflow workflowVideos = new workflow.Workflow();
 
         workflowVideos.registrarAtividade(new workflow.atividades.CarregarVideo());
         workflowVideos.registrarAtividade(new workflow.atividades.EnviarEmail());
@@ -23,7 +23,7 @@ public class Program {
 
         System.out.println("-----");
 
-        Workflow workflowVideosStatus = new Workflow();
+        workflow.Workflow workflowVideosStatus = new workflow.Workflow();
 
         workflowVideosStatus.registrarAtividade(new workflow.atividades.CarregarVideo());
         workflowVideosStatus.registrarAtividade(new workflow.atividades.ModificarStatusVideo());
