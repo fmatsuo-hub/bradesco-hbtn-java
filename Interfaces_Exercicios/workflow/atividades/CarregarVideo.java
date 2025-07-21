@@ -1,4 +1,4 @@
-package atividades;
+package workflow.atividades;
 
 public class CarregarVideo implements Atividade {
     public void executar() {

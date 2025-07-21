@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Workflow {
-    private List<atividades.Atividade> atividadesLista = new ArrayList<>();
+    private List<workflow.atividades.Atividade> atividadesLista = new ArrayList<>();
 
-    public void registrarAtividade(atividades.Atividade atividade) {
+    public void registrarAtividade(workflow.atividades.Atividade atividade) {
         atividadesLista.add(atividade);
     }
 
-    public List<atividades.Atividade> getAtividades() {
+    public List<workflow.atividades.Atividade> getAtividades() {
         return atividadesLista;
     }
 }
