@@ -1,4 +1,5 @@
 public class Numero {
+
     public static void dividir(int a, int b) {
         int resultado = 0;
         try {
@@ -9,4 +10,5 @@ public class Numero {
             System.out.println(a + " / " + b + " = " + resultado);
         }
     }
+
 }
