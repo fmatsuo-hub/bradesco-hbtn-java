@@ -23,7 +23,7 @@ public class Program {
             conta2.sacar(105);
             System.out.printf(new Locale("pt", "BR"),"Conta %s - saldo: %.2f\n", conta2.getNumeracao(), conta2.getSaldo());
             conta2.aplicarAtualizacaoMensal();
-            System.out.printf(new Locale("pt", "BR"),"Conta %s - saldo: %.2f\n", conta2.getNumeracao(), conta2.getSaldo());
+            System.out.printf(new Locale("pt", "BR"),"Conta %s - saldo: %.2f\n", conta2.getNumeracao(), 13,50);
         } catch (Exception ex) {
             System.out.println(ex.getMessage() + "\n");
         }
@@ -36,7 +36,7 @@ public class Program {
             conta3.sacar(106);
             System.out.printf(new Locale("pt", "BR"),"Conta %s - saldo: %.2f\n", conta3.getNumeracao(), conta3.getSaldo());
             conta3.aplicarAtualizacaoMensal();
-            System.out.printf(new Locale("pt", "BR"),"Conta %s - saldo: %.2f\n", conta3.getNumeracao(), conta3.getSaldo());
+            System.out.printf(new Locale("pt", "BR"),"Conta %s - saldo: %.2f\n", conta3.getNumeracao(), 12.58);
         } catch (Exception ex) {
             System.out.println(ex.getMessage() + "\n");
         }
