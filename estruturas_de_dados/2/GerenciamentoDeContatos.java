@@ -1,4 +1,6 @@
+import java.text.Collator;
 import java.util.LinkedHashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class GerenciamentoDeContatos {
@@ -27,8 +29,9 @@ public class GerenciamentoDeContatos {
     }
 
     public void exibirContatosOrdenados() {
+        Collator collator = Collator.getInstance(new Locale("pt", "BR"));
         contatos.keySet().stream()
-            .sorted()
+            .sorted(collator)
             .forEach(nome -> {
                 Contato contato = contatos.get(nome);
                 System.out.println("Nome: " + nome);
