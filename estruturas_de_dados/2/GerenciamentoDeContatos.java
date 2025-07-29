@@ -29,6 +29,7 @@ public class GerenciamentoDeContatos {
     public void exibirContatosOrdenados() {
         List<String> nomes = new ArrayList<>(contatos.keySet());
         Collator collator = Collator.getInstance(new Locale("pt", "BR"));
+        collator.setStrength(Collator.PRIMARY);
         nomes.sort(collator);
 
         for (String nome : nomes) {
