@@ -1,3 +1,4 @@
+import java.text.Collator;
 import java.util.*;
 
 public class GerenciamentoDeContatos {
@@ -27,7 +28,8 @@ public class GerenciamentoDeContatos {
 
     public void exibirContatosOrdenados() {
         List<String> nomes = new ArrayList<>(contatos.keySet());
-        Collections.sort(nomes);
+        Collator collator = Collator.getInstance(new Locale("pt", "BR"));
+        nomes.sort(collator);
 
         for (String nome : nomes) {
             Contato contato = contatos.get(nome);
@@ -38,7 +40,6 @@ public class GerenciamentoDeContatos {
         }
     }
 
-    // ✅ Exibição na ordem de inserção original
     public void exibirContatos() {
         contatos.forEach((nome, contato) -> {
             System.out.println("Nome: " + nome);
