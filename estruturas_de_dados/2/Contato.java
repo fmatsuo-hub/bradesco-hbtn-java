@@ -21,11 +21,6 @@ public class Contato {
         return false;
     }
 
-    public void exibirContato() {
-        System.out.println("Telefones: " + telefones);
-        System.out.println("Emails: " + emails);
-    }
-
     public List<String> getTelefones() {
         return telefones;
     }
