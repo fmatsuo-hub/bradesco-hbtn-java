@@ -1,4 +1,3 @@
-import java.text.Collator;
 import java.util.*;
 
 public class GerenciamentoDeContatos {
@@ -41,9 +40,7 @@ public class GerenciamentoDeContatos {
 
     public void exibirContatosOrdenados() {
         List<Map.Entry<String, Contato>> lista = new ArrayList<>(contatos.entrySet());
-        Collator collator = Collator.getInstance(new Locale("pt", "BR"));
-        collator.setStrength(Collator.PRIMARY);
-        lista.sort((a, b) -> collator.compare(a.getKey(), b.getKey()));
+        lista.sort((a, b) -> a.getKey().compareToIgnoreCase(b.getKey()));
 
         for (Map.Entry<String, Contato> entry : lista) {
             String nome = entry.getKey();
