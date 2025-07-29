@@ -27,11 +27,10 @@ public class GerenciamentoDeContatos {
     }
 
     public void exibirContatosOrdenados() {
-        contatos.entrySet().stream()
-            .sorted(Map.Entry.comparingByKey())
-            .forEach(entry -> {
-                String nome = entry.getKey();
-                Contato contato = entry.getValue();
+        contatos.keySet().stream()
+            .sorted()
+            .forEach(nome -> {
+                Contato contato = contatos.get(nome);
                 System.out.println("Nome: " + nome);
                 System.out.println("Telefones: " + contato.getTelefones());
                 System.out.println("Emails: " + contato.getEmails());
@@ -39,7 +38,6 @@ public class GerenciamentoDeContatos {
             });
     }
 
-    // Exibe na ordem de inserção
     public void exibirContatos() {
         contatos.forEach((nome, contato) -> {
             System.out.println("Nome: " + nome);
