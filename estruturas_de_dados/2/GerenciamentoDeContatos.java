@@ -1,4 +1,3 @@
-import java.text.Collator;
 import java.util.*;
 
 public class GerenciamentoDeContatos {
@@ -27,13 +26,11 @@ public class GerenciamentoDeContatos {
     }
 
     public void exibirContatosOrdenados() {
-        List<Map.Entry<String, Contato>> lista = new ArrayList<>(contatos.entrySet());
-        Collator collator = Collator.getInstance(new Locale("pt", "BR"));
-        lista.sort(Map.Entry.comparingByKey(collator));
+        List<String> nomes = new ArrayList<>(contatos.keySet());
+        Collections.sort(nomes);
 
-        for (Map.Entry<String, Contato> entry : lista) {
-            String nome = entry.getKey();
-            Contato contato = entry.getValue();
+        for (String nome : nomes) {
+            Contato contato = contatos.get(nome);
             System.out.println("Nome: " + nome);
             System.out.println("Telefones: " + contato.getTelefones());
             System.out.println("Emails: " + contato.getEmails());
