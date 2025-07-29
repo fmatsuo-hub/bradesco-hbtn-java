@@ -1,7 +1,8 @@
+import java.text.Collator;
 import java.util.*;
 
 public class GerenciamentoDeContatos {
-    public Map<String, Contato> contatos;
+    private Map<String, Contato> contatos;
 
     public GerenciamentoDeContatos() {
         contatos = new LinkedHashMap<>();
@@ -39,7 +40,12 @@ public class GerenciamentoDeContatos {
     }
 
     public void exibirContatosOrdenados() {
-        for (Map.Entry<String, Contato> entry : contatos.entrySet()) {
+        List<Map.Entry<String, Contato>> lista = new ArrayList<>(contatos.entrySet());
+        Collator collator = Collator.getInstance(new Locale("pt", "BR"));
+        collator.setStrength(Collator.PRIMARY);
+        lista.sort((a, b) -> collator.compare(a.getKey(), b.getKey()));
+
+        for (Map.Entry<String, Contato> entry : lista) {
             String nome = entry.getKey();
             Contato contato = entry.getValue();
             System.out.println("Nome: " + nome);
@@ -55,13 +61,6 @@ public class GerenciamentoDeContatos {
         agenda.adicionarContato("Maria", "8765-4321", "maria@email.com");
         agenda.adicionarContato("Ana", "1122-3344", "ana@email.com");
         agenda.adicionarContato("Carlos", "9999-0000", "duplicado@email.com");
-
-        // Reorganização manual
-        Map<String, Contato> novo = new LinkedHashMap<>();
-        novo.put("Ana", agenda.contatos.get("Ana"));
-        novo.put("Maria", agenda.contatos.get("Maria"));
-        novo.put("Carlos", agenda.contatos.get("Carlos"));
-        agenda.contatos = novo;
 
         System.out.println("Exibindo todos os contatos:");
         agenda.exibirContatosOrdenados();
