@@ -1,7 +1,5 @@
 import java.text.Collator;
-import java.util.LinkedHashMap;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 
 public class GerenciamentoDeContatos {
     private Map<String, Contato> contatos;
@@ -29,18 +27,21 @@ public class GerenciamentoDeContatos {
     }
 
     public void exibirContatosOrdenados() {
+        List<Map.Entry<String, Contato>> lista = new ArrayList<>(contatos.entrySet());
         Collator collator = Collator.getInstance(new Locale("pt", "BR"));
-        contatos.keySet().stream()
-            .sorted(collator)
-            .forEach(nome -> {
-                Contato contato = contatos.get(nome);
-                System.out.println("Nome: " + nome);
-                System.out.println("Telefones: " + contato.getTelefones());
-                System.out.println("Emails: " + contato.getEmails());
-                System.out.println("-------------------------------");
-            });
+        lista.sort(Map.Entry.comparingByKey(collator));
+
+        for (Map.Entry<String, Contato> entry : lista) {
+            String nome = entry.getKey();
+            Contato contato = entry.getValue();
+            System.out.println("Nome: " + nome);
+            System.out.println("Telefones: " + contato.getTelefones());
+            System.out.println("Emails: " + contato.getEmails());
+            System.out.println("-------------------------------");
+        }
     }
 
+    // ✅ Exibição na ordem de inserção original
     public void exibirContatos() {
         contatos.forEach((nome, contato) -> {
             System.out.println("Nome: " + nome);
