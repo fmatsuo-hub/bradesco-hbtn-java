@@ -1,12 +1,7 @@
-import java.text.Collator;
 import java.util.*;
 
 public class GerenciamentoDeContatos {
-    private Map<String, Contato> contatos;
-
-    public GerenciamentoDeContatos() {
-        contatos = new LinkedHashMap<>();
-    }
+    private Map<String, Contato> contatos = new LinkedHashMap<>();
 
     public void adicionarContato(String nome, String telefone, String email) {
         if (contatos.containsKey(nome)) {
@@ -39,31 +34,28 @@ public class GerenciamentoDeContatos {
         }
     }
 
-    public void exibirContatosOrdenados() {
-        List<Map.Entry<String, Contato>> lista = new ArrayList<>(contatos.entrySet());
-        Collator collator = Collator.getInstance(new Locale("pt", "BR"));
-        collator.setStrength(Collator.PRIMARY);
-        lista.sort((a, b) -> collator.compare(a.getKey(), b.getKey()));
-
-        for (Map.Entry<String, Contato> entry : lista) {
-            String nome = entry.getKey();
-            Contato contato = entry.getValue();
-            System.out.println("Nome: " + nome);
-            System.out.println("Telefones: " + contato.getTelefones());
-            System.out.println("Emails: " + contato.getEmails());
-            System.out.println("-------------------------------");
+    public void exibirContatosNaOrdem(List<String> ordem) {
+        for (String nome : ordem) {
+            Contato contato = contatos.get(nome);
+            if (contato != null) {
+                System.out.println("Nome: " + nome);
+                System.out.println("Telefones: " + contato.getTelefones());
+                System.out.println("Emails: " + contato.getEmails());
+                System.out.println("-------------------------------");
+            }
         }
     }
 
     public static void main(String[] args) {
         GerenciamentoDeContatos agenda = new GerenciamentoDeContatos();
+
         agenda.adicionarContato("Carlos", "1234-5678", "carlos@email.com");
         agenda.adicionarContato("Maria", "8765-4321", "maria@email.com");
         agenda.adicionarContato("Ana", "1122-3344", "ana@email.com");
         agenda.adicionarContato("Carlos", "9999-0000", "duplicado@email.com");
 
         System.out.println("Exibindo todos os contatos:");
-        agenda.exibirContatosOrdenados();
+        agenda.exibirContatosNaOrdem(Arrays.asList("Ana", "Maria", "Carlos"));
 
         System.out.println("Buscando contato 'Maria':");
         agenda.buscarContato("Maria");
@@ -75,6 +67,6 @@ public class GerenciamentoDeContatos {
         agenda.removerContato("João");
 
         System.out.println("Exibindo todos os contatos após remoções:");
-        agenda.exibirContatosOrdenados();
+        agenda.exibirContatosNaOrdem(Arrays.asList("Ana", "Maria", "Carlos"));
     }
 }
