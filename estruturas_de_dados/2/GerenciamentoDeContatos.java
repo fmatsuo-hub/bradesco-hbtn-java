@@ -43,10 +43,8 @@ public class GerenciamentoDeContatos {
         List<Map.Entry<String, Contato>> lista = new ArrayList<>(contatos.entrySet());
         Collator collator = Collator.getInstance(new Locale("pt", "BR"));
         collator.setStrength(Collator.PRIMARY);
-
         lista.sort((a, b) -> collator.compare(a.getKey(), b.getKey()));
 
-        System.out.println("Exibindo todos os contatos:");
         for (Map.Entry<String, Contato> entry : lista) {
             String nome = entry.getKey();
             Contato contato = entry.getValue();
@@ -63,9 +61,11 @@ public class GerenciamentoDeContatos {
         agenda.adicionarContato("Carlos", "1234-5678", "carlos@email.com");
         agenda.adicionarContato("Maria", "8765-4321", "maria@email.com");
         agenda.adicionarContato("Ana", "1122-3344", "ana@email.com");
-        agenda.adicionarContato("Carlos", "9999-0000", "duplicado@email.com"); // deve dar erro
+        agenda.adicionarContato("Carlos", "9999-0000", "duplicado@email.com");
 
+        System.out.println("Exibindo todos os contatos:");
         agenda.exibirContatosOrdenados();
+
         System.out.println("Buscando contato 'Maria':");
         agenda.buscarContato("Maria");
 

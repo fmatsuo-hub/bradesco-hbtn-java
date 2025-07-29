@@ -1,13 +1,12 @@
 import java.util.*;
 
-public class Contato {
-    
+class Contato {
     private List<String> telefones;
     private List<String> emails;
 
     public Contato() {
-        this.telefones = new ArrayList<>();
-        this.emails = new ArrayList<>();
+        telefones = new ArrayList<>();
+        emails = new ArrayList<>();
     }
 
     public void adicionarTelefone(String telefone) {
