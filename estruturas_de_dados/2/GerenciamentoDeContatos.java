@@ -48,61 +48,30 @@ public class GerenciamentoDeContatos {
 
     public static void main(String[] args) {
         GerenciamentoDeContatos agenda = new GerenciamentoDeContatos();
-
         agenda.adicionarContato("Carlos", "1234-5678", "carlos@email.com");
         agenda.adicionarContato("Maria", "8765-4321", "maria@email.com");
         agenda.adicionarContato("Ana", "1122-3344", "ana@email.com");
         agenda.adicionarContato("Carlos", "9999-0000", "duplicado@email.com");
+        System.out.println();
 
-        /*System.out.println("Exibindo todos os contatos:");
+        System.out.println("Exibindo todos os contatos:");
         agenda.exibirContatosNaOrdem(Arrays.asList("Ana", "Maria", "Carlos"));
-
+        System.out.println();
+        
         System.out.println("Buscando contato 'Maria':");
         agenda.buscarContato("Maria");
-
+        System.out.println();
+        
         System.out.println("Removendo contato 'Carlos':");
         agenda.removerContato("Carlos");
-
+        System.out.println();
+        
         System.out.println("Tentando remover contato 'João' que não existe:");
         agenda.removerContato("João");
-
-        System.out.println("Exibindo todos os contatos após remoções:");
-        agenda.exibirContatosNaOrdem(Arrays.asList("Ana", "Maria", "Carlos"));*/
-    
-        System.out.println("Contato Carlos adicionado com sucesso!");
-        System.out.println("Contato Maria adicionado com sucesso!");
-        System.out.println("Contato Ana adicionado com sucesso!");
-        System.out.println("Erro: Contato com nome Carlos já existe!");
-        System.out.println("Exibindo todos os contatos:");
-        System.out.println("Nome: Ana");
-        System.out.println("Telefones: [1122-3344]");
-        System.out.println("Emails: [ana@email.com]");
-        System.out.println("-------------------------------");
-        System.out.println("Nome: Maria");
-        System.out.println("Telefones: [8765-4321]");
-        System.out.println("Emails: [maria@email.com]");
-        System.out.println("-------------------------------");
-        System.out.println("Nome: Carlos");
-        System.out.println("Telefones: [1234-5678]");
-        System.out.println("Emails: [carlos@email.com]");
-        System.out.println("-------------------------------");
-        System.out.println("Buscando contato 'Maria':");
-        System.out.println("Contato encontrado: Maria");
-        System.out.println("Telefones: [8765-4321]");
-        System.out.println("Emails: [maria@email.com]");
-        System.out.println("Removendo contato 'Carlos':");
-        System.out.println("Contato Carlos removido com sucesso!");
-        System.out.println("Tentando remover contato 'João' que não existe:");
-        System.out.println("Contato João não encontrado.");
-        System.out.println("Exibindo todos os contatos após remoções:");
-        System.out.println("Nome: Ana");
-        System.out.println("Telefones: [1122-3344]");
-        System.out.println("Emails: [ana@email.com]");
-        System.out.println("-------------------------------");
-        System.out.println("Nome: Maria");
-        System.out.println("Telefones: [8765-4321]");
-        System.out.println("Emails: [maria@email.com]");
-        System.out.println("-------------------------------");
+        System.out.println();
         
+        System.out.println("Exibindo todos os contatos após remoções:");
+        agenda.exibirContatosNaOrdem(Arrays.asList("Ana", "Maria", "Carlos"));
+        System.out.println();
     }
 }
