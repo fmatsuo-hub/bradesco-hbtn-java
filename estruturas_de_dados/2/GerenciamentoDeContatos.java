@@ -72,6 +72,5 @@ public class GerenciamentoDeContatos {
         
         System.out.println("Exibindo todos os contatos após remoções:");
         agenda.exibirContatosNaOrdem(Arrays.asList("Ana", "Maria", "Carlos"));
-        System.out.println();
     }
 }
