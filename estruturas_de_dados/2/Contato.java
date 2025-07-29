@@ -1,31 +1,28 @@
 import java.util.*;
 
 public class Contato {
+    
     private List<String> telefones;
-    private Set<String> emails;
+    private List<String> emails;
 
     public Contato() {
-        telefones = new ArrayList<>();
-        emails = new HashSet<>();
+        this.telefones = new ArrayList<>();
+        this.emails = new ArrayList<>();
     }
 
     public void adicionarTelefone(String telefone) {
         telefones.add(telefone);
     }
 
-    public boolean adicionarEmail(String email) {
-        if (!emails.contains(email)) {
-            emails.add(email);
-            return true;
-        }
-        return false;
+    public void adicionarEmail(String email) {
+        emails.add(email);
     }
 
     public List<String> getTelefones() {
         return telefones;
     }
 
-    public Set<String> getEmails() {
+    public List<String> getEmails() {
         return emails;
     }
 }
