@@ -17,19 +17,19 @@ public class PessoasArray {
     }
 
     public void buscaLinear(String nome) {
+        // if (nomes[i] == nome) {}
         System.out.println("Procurando pelo nome: \"" + nome + "\"");
         boolean encontrado = false;
-    
-        for (int i = 0; i < nomes.length; i++) {
+            for (int i = 0; i < nomes.length; i++) {
             System.out.println("Passando pelo indice:" + i);
     
             if (nomes[i].equals(nome) && !encontrado) {
-                System.out.println("Nome pesquisado \u00E9 " + nomes[i] + " que est\u00E1 na posi\u00E7\u00E3o " + i);
+                System.out.println("Nome pesquisado é " + nomes[i] + " que está na posição " + i);
                 encontrado = true;
             }
         }
         if (!encontrado) {
-            throw new IllegalArgumentException("O nome " + nome + " n\u00E3o se encontra no array de nomes");
+            throw new IllegalArgumentException("O nome " + nome + " não se encontra no array de nomes");
         }
     }
     
