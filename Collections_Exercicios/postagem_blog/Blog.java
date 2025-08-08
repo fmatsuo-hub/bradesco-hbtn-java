@@ -5,7 +5,7 @@ public class Blog {
 
     public void adicionarPostagem(Post post) {
         if (postagens.contains(post)) {
-            throw new RuntimeException("Postagem já existente");
+            throw new RuntimeException("Postagem jah existente");
         }
         postagens.add(post);
     }
