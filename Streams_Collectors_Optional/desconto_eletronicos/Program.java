@@ -29,18 +29,14 @@ import java.util.List;
             Pedido pedido3 = new Pedido(3, List.of(produto4, produto6, produto5), cliente3);
             Pedido pedido4 = new Pedido(4, List.of(produto6, produto1, produto5), cliente3);
 
-            List<Pedido> pedidosEletronicos1 = Consulta.obterPedidosComEletronicos(
-                List.of(pedido1, pedido2, pedido3));
-            List<Pedido> pedidosEletronicos2 = Consulta.obterPedidosComEletronicos(
-                List.of(pedido2, pedido3));
-            List<Pedido> pedidosEletronicos3 = Consulta.obterPedidosComEletronicos(
-                List.of(pedido3));
-            List<Pedido> pedidosEletronicos4 = Consulta.obterPedidosComEletronicos(
-                    List.of(pedido3));            
+            List<Produto> produtosPedido1 = Consulta.aplicar15PorcentoDescontoEletronicos(pedido1.getProdutos());
+            List<Produto> produtosPedido2 = Consulta.aplicar15PorcentoDescontoEletronicos(pedido2.getProdutos());
+            List<Produto> produtosPedido3 = Consulta.aplicar15PorcentoDescontoEletronicos(pedido3.getProdutos());        
+            List<Produto> produtosPedido4 = Consulta.aplicar15PorcentoDescontoEletronicos(pedido4.getProdutos());        
 
-            System.out.println(pedidosEletronicos1);
-            System.out.println(pedidosEletronicos2);
-            System.out.println(pedidosEletronicos3);
-            System.out.println(pedidosEletronicos4);
+            System.out.println(produtosPedido1);
+            System.out.println(produtosPedido2);
+            System.out.println(produtosPedido3);
+            System.out.println(produtosPedido4);
         }
     }
