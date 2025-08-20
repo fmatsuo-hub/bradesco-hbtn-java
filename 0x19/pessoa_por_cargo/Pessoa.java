@@ -1,3 +1,5 @@
+import java.util.Locale;
+
 public class Pessoa {
     private int codigo;
     private String nome;
@@ -15,7 +17,8 @@ public class Pessoa {
 
     @Override
     public String toString() {
-        return String.format("[%d] %s %s %d R$ %.6f",
+        return String.format(new Locale("pt", "BR"),
+                "[%d] %s %s %d R$ %.6f",
                 codigo, nome, cargo, idade, salario);
     }
 
