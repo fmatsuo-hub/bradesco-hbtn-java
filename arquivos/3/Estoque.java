@@ -16,6 +16,11 @@ public class Estoque {
     public void carregarEstoque() {
         produtos.clear();
         
+        File file = new File(arquivo);
+        if (!file.exists()) {
+            return;
+        }
+        
         try (BufferedReader reader = new BufferedReader(new FileReader(arquivo))) {
             String linha;
             boolean primeiraLinha = true;
@@ -30,24 +35,24 @@ public class Estoque {
                 
                 String[] dados = linha.split(",");
                 if (dados.length == 4) {
-                    int id = Integer.parseInt(dados[0].trim());
-                    String nome = dados[1].trim();
-                    int quantidade = Integer.parseInt(dados[2].trim());
-                    double preco = Double.parseDouble(dados[3].trim());
-                    
-                    produtos.add(new Produto(id, nome, quantidade, preco));
-                    
-                    if (id >= proximoId) {
-                        proximoId = id + 1;
+                    try {
+                        int id = Integer.parseInt(dados[0].trim());
+                        String nome = dados[1].trim();
+                        int quantidade = Integer.parseInt(dados[2].trim());
+                        double preco = Double.parseDouble(dados[3].trim());
+                        
+                        produtos.add(new Produto(id, nome, quantidade, preco));
+                        
+                        if (id >= proximoId) {
+                            proximoId = id + 1;
+                        }
+                    } catch (NumberFormatException e) {
+                        //
                     }
                 }
             }
-        } catch (FileNotFoundException e) {
-            // 
         } catch (IOException e) {
-            // 
-        } catch (NumberFormatException e) {
-            // 
+            //
         }
     }
 
@@ -57,12 +62,16 @@ public class Estoque {
             writer.write("ID,Nome,Quantidade,Preco");
             writer.newLine();
             
+            // Ordena por ID
+            produtos.sort(Comparator.comparingInt(Produto::getId));
+            
             // Escreve os produtos
             for (Produto produto : produtos) {
                 writer.write(produto.toCsv());
                 writer.newLine();
             }
         } catch (IOException e) {
+            //
         }
     }
 
@@ -71,25 +80,36 @@ public class Estoque {
             return;
         }
         
-        Produto novoProduto = new Produto(proximoId, nome, quantidade, preco);
+        // Encontra o próximo ID
+        int novoId = proximoId;
+        boolean idExistente;
+        do {
+            idExistente = false;
+            for (Produto p : produtos) {
+                if (p.getId() == novoId) {
+                    idExistente = true;
+                    novoId++;
+                    break;
+                }
+            }
+        } while (idExistente);
+        
+        Produto novoProduto = new Produto(novoId, nome, quantidade, preco);
         produtos.add(novoProduto);
+        proximoId = novoId + 1;
         salvarEstoque();
-        proximoId++;
     }
 
     public void excluirProduto(int id) {
         boolean removido = produtos.removeIf(produto -> produto.getId() == id);
-        
         if (removido) {
             salvarEstoque();
         }
     }
 
     public void exibirEstoque() {
-        if (produtos.isEmpty()) {
-            System.out.println("Estoque vazio!");
-            return;
-        }
+        // Ordena por ID
+        produtos.sort(Comparator.comparingInt(Produto::getId));
         
         for (Produto produto : produtos) {
             System.out.println(produto);
