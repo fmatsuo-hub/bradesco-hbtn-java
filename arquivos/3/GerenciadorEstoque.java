@@ -49,7 +49,7 @@ public class GerenciadorEstoque {
                 default:
                     System.out.println("Opção inválida!");
             }
-            System.out.println(); // Linha em branco para melhor visualização
+            System.out.println();
         }
     }
 }

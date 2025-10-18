@@ -43,7 +43,6 @@ public class Estoque {
                 }
             }
         } catch (FileNotFoundException e) {
-            System.out.println("Arquivo não encontrado. Criando novo arquivo...");
         } catch (IOException e) {
             System.out.println("Erro ao carregar estoque: " + e.getMessage());
         } catch (NumberFormatException e) {
@@ -76,7 +75,6 @@ public class Estoque {
         Produto novoProduto = new Produto(proximoId, nome, quantidade, preco);
         produtos.add(novoProduto);
         salvarEstoque();
-        System.out.println("Produto adicionado com sucesso! ID: " + proximoId);
         proximoId++;
     }
 
@@ -85,7 +83,6 @@ public class Estoque {
         
         if (removido) {
             salvarEstoque();
-            System.out.println("Produto com ID " + id + " removido com sucesso!");
         } else {
             System.out.println("Produto com ID " + id + " não encontrado!");
         }
@@ -112,7 +109,6 @@ public class Estoque {
             if (produto.getId() == id) {
                 produto.setQuantidade(novaQuantidade);
                 salvarEstoque();
-                System.out.println("Quantidade do produto ID " + id + " atualizada para " + novaQuantidade);
                 return;
             }
         }
