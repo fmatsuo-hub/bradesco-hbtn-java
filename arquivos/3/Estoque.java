@@ -1,0 +1,121 @@
+import java.io.*;
+import java.util.*;
+
+public class Estoque {
+    private List<Produto> produtos;
+    private String arquivo;
+    private int proximoId;
+
+    public Estoque(String arquivo) {
+        this.arquivo = arquivo;
+        this.produtos = new ArrayList<>();
+        this.proximoId = 1;
+        carregarEstoque();
+    }
+
+    public void carregarEstoque() {
+        produtos.clear();
+        
+        try (BufferedReader reader = new BufferedReader(new FileReader(arquivo))) {
+            String linha;
+            boolean primeiraLinha = true;
+            
+            while ((linha = reader.readLine()) != null) {
+                if (linha.trim().isEmpty()) continue;
+                
+                if (primeiraLinha) {
+                    primeiraLinha = false;
+                    continue; // Pula o cabeçalho
+                }
+                
+                String[] dados = linha.split(",");
+                if (dados.length == 4) {
+                    int id = Integer.parseInt(dados[0].trim());
+                    String nome = dados[1].trim();
+                    int quantidade = Integer.parseInt(dados[2].trim());
+                    double preco = Double.parseDouble(dados[3].trim());
+                    
+                    produtos.add(new Produto(id, nome, quantidade, preco));
+                    
+                    if (id >= proximoId) {
+                        proximoId = id + 1;
+                    }
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Arquivo não encontrado. Criando novo arquivo...");
+        } catch (IOException e) {
+            System.out.println("Erro ao carregar estoque: " + e.getMessage());
+        } catch (NumberFormatException e) {
+            System.out.println("Erro ao converter dados numéricos: " + e.getMessage());
+        }
+    }
+
+    public void salvarEstoque() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(arquivo))) {
+            // Escreve o cabeçalho
+            writer.write("ID,Nome,Quantidade,Preco");
+            writer.newLine();
+            
+            // Escreve os produtos
+            for (Produto produto : produtos) {
+                writer.write(produto.toCsv());
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.out.println("Erro ao salvar estoque: " + e.getMessage());
+        }
+    }
+
+    public void adicionarProduto(String nome, int quantidade, double preco) {
+        if (quantidade < 0 || preco < 0) {
+            System.out.println("Quantidade e preço devem ser valores positivos!");
+            return;
+        }
+        
+        Produto novoProduto = new Produto(proximoId, nome, quantidade, preco);
+        produtos.add(novoProduto);
+        salvarEstoque();
+        System.out.println("Produto adicionado com sucesso! ID: " + proximoId);
+        proximoId++;
+    }
+
+    public void excluirProduto(int id) {
+        boolean removido = produtos.removeIf(produto -> produto.getId() == id);
+        
+        if (removido) {
+            salvarEstoque();
+            System.out.println("Produto com ID " + id + " removido com sucesso!");
+        } else {
+            System.out.println("Produto com ID " + id + " não encontrado!");
+        }
+    }
+
+    public void exibirEstoque() {
+        if (produtos.isEmpty()) {
+            System.out.println("Estoque vazio!");
+            return;
+        }
+        
+        for (Produto produto : produtos) {
+            System.out.println(produto);
+        }
+    }
+
+    public void atualizarQuantidade(int id, int novaQuantidade) {
+        if (novaQuantidade < 0) {
+            System.out.println("Quantidade deve ser um valor positivo!");
+            return;
+        }
+        
+        for (Produto produto : produtos) {
+            if (produto.getId() == id) {
+                produto.setQuantidade(novaQuantidade);
+                salvarEstoque();
+                System.out.println("Quantidade do produto ID " + id + " atualizada para " + novaQuantidade);
+                return;
+            }
+        }
+        System.out.println("Produto com ID " + id + " não encontrado!");
+    }
+}
