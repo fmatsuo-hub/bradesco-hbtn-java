@@ -43,10 +43,11 @@ public class Estoque {
                 }
             }
         } catch (FileNotFoundException e) {
+            // 
         } catch (IOException e) {
-            System.out.println("Erro ao carregar estoque: " + e.getMessage());
+            // 
         } catch (NumberFormatException e) {
-            System.out.println("Erro ao converter dados numéricos: " + e.getMessage());
+            // 
         }
     }
 
@@ -62,13 +63,11 @@ public class Estoque {
                 writer.newLine();
             }
         } catch (IOException e) {
-            System.out.println("Erro ao salvar estoque: " + e.getMessage());
         }
     }
 
     public void adicionarProduto(String nome, int quantidade, double preco) {
         if (quantidade < 0 || preco < 0) {
-            System.out.println("Quantidade e preço devem ser valores positivos!");
             return;
         }
         
@@ -83,8 +82,6 @@ public class Estoque {
         
         if (removido) {
             salvarEstoque();
-        } else {
-            System.out.println("Produto com ID " + id + " não encontrado!");
         }
     }
 
@@ -101,7 +98,6 @@ public class Estoque {
 
     public void atualizarQuantidade(int id, int novaQuantidade) {
         if (novaQuantidade < 0) {
-            System.out.println("Quantidade deve ser um valor positivo!");
             return;
         }
         
@@ -112,6 +108,5 @@ public class Estoque {
                 return;
             }
         }
-        System.out.println("Produto com ID " + id + " não encontrado!");
     }
 }
